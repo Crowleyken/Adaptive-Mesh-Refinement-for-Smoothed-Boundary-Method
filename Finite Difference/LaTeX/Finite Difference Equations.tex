@@ -1,0 +1,48 @@
+\documentclass{article}
+
+\title{Adaptive Mesh Refinment for Smooth Boundary}
+\date{05-25-2018}
+\author{Ken Crowley}
+
+
+\begin{document}
+	
+	\pagenumbering{arabic}
+	\maketitle
+	\newpage
+	\tableofcontents
+	\newpage
+
+	\centering
+	\section{Finite Difference}
+	The Diffusion equation:
+	\begin{equation}
+	\frac{\mathrm{d}C}{\mathrm{d}t} = D\nabla^2
+	\end{equation}
+
+	Central Discretization (1D):
+	\begin{equation}
+	\frac{C_i^{n+1}-C_i^n}{\Delta t} = D \frac{C_{i+1}^n-2C_i^n+C_{i-1}^n}{\Delta x^2}
+	\end{equation}
+
+	\mbox {Solving for $C_i^{n+1}$}:
+	\begin{equation}
+	C_i^{n+1} = D \Delta t \frac{C_{i+1}^n-2C_i^n+C_{i-1}^n}{\Delta x^2} + C_i^n
+	\end{equation}
+
+	Von Neumann Stability Condition:
+	\begin{equation}
+	\Delta t \leq\frac{\Delta x^2}{D}
+	\end{equation}
+
+	Central Discretization (2D):
+	\begin{equation}	
+	\frac{C_{i,j}^{n+1}-C_{i,j}^n}{\Delta t} = D (\frac{C_{i,j+1}^n-2C_{i,j}^n+C_{i,j-1}^n}{\Delta x^2} + \frac{C_{i+1,j}^n-2C_{i,j}^n+C_{i-1,j}^n}{\Delta y^2})
+	\end{equation}
+
+	\mbox {Solving for $C_{i,j}^{n+1}$}:
+	\begin{equation}
+	C_{i,j}^{n+1} = D \Delta t(\frac{C_{i,j+1}^n-2C_{i,j}^n+C_{i,j-1}^n}{\Delta x^2} + \frac{C_{i+1,j}^n-2C_{i,j}^n+C_{i-1,j}^n}{\Delta y^2}) + C_{i,j}^n
+	\end{equation}
+
+\end{document}
