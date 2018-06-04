@@ -1,9 +1,10 @@
-! A fortran95 program for G95
+! This program solves the 1D problem from Hw3 pdf and writes the 2D array to a data file
 
 program main
-
+  
+  use Arrays
   implicit none
-
+  
 	! Interface to allow subroutine to be used
 	interface
 		subroutine concentration(x,t,c,x0,t0)
@@ -16,7 +17,7 @@ program main
   
   
     ! Declaring Variables
-    integer L, N, tf, time, k, j, dat
+    integer L, N, tf, time, k, j
     real*8 dx, dt, t0, x0
 	
 	! Allowing matrices to allocate data later on, x and c are 1D, cstore is 2D
@@ -53,8 +54,6 @@ program main
 	! Initial c is found before the do loop
 	call concentration(x,t0,c,x0,t0)
 	
-	open(unit=dat, file="concdata.dat", action="write")
-	write(dat, *) c
 	
 	! Loops from 1 to N, determining new concentration gradient at each time step
 	do j = 1,N
@@ -65,12 +64,11 @@ program main
 	! Stores each concentration gradient from each time step into a 2D array
 	cstore(j,:) = c
 	
-	write(dat, *) c
-	
 	end do
 	
-	close(dat)
-
+	! calls the array module, writing a two dimensional array to a data file
+	call TwoD_write(cstore,N,time)
+	
 end program main
 
 
@@ -87,5 +85,6 @@ subroutine concentration(x,t,c,x0,t0)
     ! Analytical Function
     c = sqrt(t0/t)*exp(-(x-x0)**2/(4*t))
 end subroutine concentration
+
 
 
