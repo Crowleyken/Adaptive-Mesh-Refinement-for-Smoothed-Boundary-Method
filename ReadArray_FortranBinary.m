@@ -23,12 +23,12 @@ function A = ReadArray_FortranBinary(filename,D)
 sz = zeros(1,D);
 
 % Opens the filename for binary read access, stores ID in
-fileID = fopen(filename,'rb')
+fileID = fopen(filename,'rb');
 
 % Moves 4 bytes (32 binary digits) from the origin and starts at that 
 % position in the data file (Fortran's data system adds 4 bytes of header
 % information and 4 bytes of cloesr infromation inbetween each write
-fseek(fileID, 4, 'cof')
+fseek(fileID, 4, 'cof');
 
 %Loops through for each dimension, assigning the length of each dimension,
 % and putting it into the sz vector
